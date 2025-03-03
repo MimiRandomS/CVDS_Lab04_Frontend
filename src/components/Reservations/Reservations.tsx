@@ -6,7 +6,8 @@ import LabSelection from "./LabSelection/LabSelection";
 import LabInfo from "./LabInfo/LabInfo";
 import DateSelector from "./DateSelector/DateSelector";
 import TimeSelector from "./TimeSelector/TimeSelector";
-import DurationSelecto from "./DurationSelector/DurationSelector";
+import DurationSelector from "./DurationSelector/DurationSelector";
+import Button from "../Button/Button";
 
 function Reservations() {
   const labs = ["LABIS-W", "LABIS-X", "LABIS-Y"];
@@ -30,8 +31,8 @@ function Reservations() {
         <div className={styles.data}>
           <DateSelector></DateSelector>
           <TimeSelector></TimeSelector>
-          <DurationSelecto items={durations}></DurationSelecto>
-          <button className={styles.data__btn}>Reservar</button>
+          <DurationSelector items={durations}></DurationSelector>
+          <Button className={styles.data__btn} text="Reservar"></Button>
         </div>
       </div>
     </div>
