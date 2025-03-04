@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./LabSelection.module.css";
 import btnStyles from "../sharedStyles/labsInfoBtn.module.css";
 import listStyles from "../sharedStyles/labsList.module.css";
 

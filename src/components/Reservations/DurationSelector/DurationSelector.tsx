@@ -8,7 +8,7 @@ type Props = {
   readonly items: number[];
 };
 
-function DurationSelecto({ items }: Props) {
+function DurationSelector({ items }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [duration, setDuration] = useState(30);
 
@@ -46,4 +46,4 @@ function DurationSelecto({ items }: Props) {
   );
 }
 
-export default DurationSelecto;
+export default DurationSelector;
