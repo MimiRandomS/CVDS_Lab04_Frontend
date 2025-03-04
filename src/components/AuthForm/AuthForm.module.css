@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: auto;
 }
 
 .title {
   text-align: center;
   color: #000;
-  padding-top: 3rem;
   padding-bottom: 2rem;
 }
 
