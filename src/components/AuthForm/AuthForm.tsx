@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./AuthForm.module.css";
 import Button from "../Button/Button";
+import { Link } from "react-router-dom";
 
 type Props = {
   readonly type: "login" | "signup";
@@ -12,6 +13,7 @@ function AuthForm({ type, children }: Props) {
   const linkText =
     type === "login" ? "¿No tienes cuenta? " : "¿Ya tienes una cuenta? ";
   const linkAction = type === "login" ? "Regístrate" : "Inicia sesión";
+  const linkPath = type === "login" ? "/signup" : "/login";
 
   return (
     <div className={styles.container}>
@@ -20,7 +22,9 @@ function AuthForm({ type, children }: Props) {
       <Button text={text} className={styles.btn}></Button>
       <p className={styles.linkText}>
         {linkText}
-        <span className={styles.link}>{linkAction}</span>
+        <Link to={linkPath} className={styles.link}>
+          {linkAction}
+        </Link>
       </p>
     </div>
   );
