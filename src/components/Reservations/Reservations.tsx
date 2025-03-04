@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Reservations.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 import LabSelection from "./LabSelection/LabSelection";

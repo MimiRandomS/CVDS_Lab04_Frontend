@@ -1,10 +1,7 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./LateralBar.module.css";
 
-type Props = {};
-
-function LateralBar({}: Props) {
+function LateralBar() {
   const items = ["Reservas", "Mis reservas"];
   return (
     <div className={styles.lateralBar}>
