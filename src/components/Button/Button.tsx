@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Button.module.css";
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
 
 function Button({ text, className }: Props) {
   return (
-    <button className={`${styles.btn} ${className}`}>
+    <button className={`${styles.btn} ${className ?? ""}`}>
       <span>{text}</span>
     </button>
   );
