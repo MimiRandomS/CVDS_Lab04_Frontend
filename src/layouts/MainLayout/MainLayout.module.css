@@ -1,0 +1,13 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 30%;
+  max-width: 17rem;
+}
+
+.main {
+  flex: 1;
+}
