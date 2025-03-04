@@ -1,15 +1,12 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import btnStyles from "../sharedStyles/labsInfoBtn.module.css";
+import styles from "../sharedStyles/labsInfoBtn.module.css";
 
-type Props = {};
-
-function LabInfo({}: Props) {
+function LabInfo() {
   return (
-    <div className={btnStyles.labs}>
-      <button className={btnStyles.labs__btn}>
+    <div className={styles.labs}>
+      <button className={styles.labs__btn}>
         <FontAwesomeIcon
-          className={btnStyles.labs__icon}
+          className={styles.labs__icon}
           icon="info-circle"
         ></FontAwesomeIcon>
       </button>
