@@ -2,7 +2,7 @@ import styles from "./UserReservations.module.css";
 import Card from "../Card/Card";
 import Button from "../Button/Button";
 import IconLink from "../IconLink/IconLink";
-import infoIcon from "../../assets/UserReservations/info.ico";
+import infoIcon from "../../assets/public/info.ico";
 
 type Reservation = {
   id: number;
@@ -18,8 +18,8 @@ function UserReservations({ reservations }: Props) {
     <div className={styles.container}>
       <div className={styles.listReservations}>
         {reservations.map((reservation) => (
-          <Card key={reservation.id} title={reservation.title}>
-            <Button text="Ver" />
+          <Card key={reservation.id} title={reservation.title} className={styles.card}>
+            <Button text="Ver" className={styles.btn}/>
             <IconLink href="#" src={infoIcon} alt="información reserva" />
           </Card>
         ))}
