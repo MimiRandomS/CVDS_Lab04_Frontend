@@ -1,13 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "../features/login/login";
-import Signup from "../features/signup/signup";
+import UserReservations from "../features/userReservations/userReservations";
+
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<Login />}></Route>
-      <Route path="/signup" element={<Signup />}></Route>
+      <Route path="/" element={<Navigate to="/userReservations" replace />} />
+      <Route path="/userReservations" element={<UserReservations />} />
     </Routes>
   );
 }

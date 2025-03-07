@@ -1,0 +1,19 @@
+.container {
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+
+.listReservations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+@media (max-width: 850px) {
+    .listReservations {
+        flex-direction: column;
+        align-items: center;
+    }
+}
