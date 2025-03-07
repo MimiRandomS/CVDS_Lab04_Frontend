@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import UserReservations from "../features/userReservations/userReservations";
+import UserReservations from "../features/User/userReservations/userReservations";
 
 
 function AppRoutes() {
