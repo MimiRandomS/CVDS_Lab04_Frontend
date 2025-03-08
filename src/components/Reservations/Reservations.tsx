@@ -9,6 +9,7 @@ import DateSelector from "./DateSelector/DateSelector";
 import TimeSelector from "./TimeSelector/TimeSelector";
 import DurationSelector from "./DurationSelector/DurationSelector";
 import Button from "../Button/Button";
+import WeeklyCalendar from "./WeeklyCalendar/WeeklyCalendar";
 
 function Reservations() {
   const labs = ["LABIS-W", "LABIS-X", "LABIS-Y"];
@@ -46,6 +47,7 @@ function Reservations() {
           <Button className={styles.data__btn} text="Reservar"></Button>
         </div>
       </div>
+      <WeeklyCalendar />
     </div>
   );
 }
