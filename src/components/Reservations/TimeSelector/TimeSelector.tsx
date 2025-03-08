@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "../sharedStyles/selector.module.css";
+import pickerStyles from "../sharedStyles/picker.module.css";
+import inputFieldStyles from "../sharedStyles/inputField.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -8,10 +9,13 @@ function TimeSelector() {
   const [selectedHour, setSelectedHour] = useState<Date | null>(null);
 
   return (
-    <div className={styles.container}>
-      <FontAwesomeIcon className={styles.icon} icon="clock"></FontAwesomeIcon>
+    <div className={inputFieldStyles.container}>
+      <FontAwesomeIcon
+        className={inputFieldStyles.icon}
+        icon="clock"
+      ></FontAwesomeIcon>
       <DatePicker
-        className={styles.picker}
+        className={pickerStyles.picker}
         selected={selectedHour}
         onChange={(date) => setSelectedHour(date)}
         showTimeSelect
