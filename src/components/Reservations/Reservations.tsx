@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Reservations.module.css";
+import inputFieldStyles from "./sharedStyles/inputField.module.css";
 import "react-datepicker/dist/react-datepicker.css";
 import LabSelection from "./LabSelection/LabSelection";
 import LabInfo from "./LabInfo/LabInfo";
@@ -28,9 +30,19 @@ function Reservations() {
           </div>
         </div>
         <div className={styles.data}>
-          <DateSelector></DateSelector>
-          <TimeSelector></TimeSelector>
-          <DurationSelector items={durations}></DurationSelector>
+          <div className={styles.data__selector}>
+            <DateSelector></DateSelector>
+            <TimeSelector></TimeSelector>
+            <DurationSelector items={durations}></DurationSelector>
+          </div>
+          <div className={inputFieldStyles.container}>
+            <FontAwesomeIcon icon="pencil" />
+            <input
+              placeholder="Proposito de la reserva"
+              type="text"
+              className={styles.purpose__input}
+            />
+          </div>
           <Button className={styles.data__btn} text="Reservar"></Button>
         </div>
       </div>

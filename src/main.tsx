@@ -10,6 +10,6 @@ import AuthLogo from "./components/AuthLogo/AuthLogo.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AuthLayout leftContent={<AuthLogo />} />
+    <MainLayout leftContent={<LateralBar />} rightContent={<Reservations />} />
   </StrictMode>
 );

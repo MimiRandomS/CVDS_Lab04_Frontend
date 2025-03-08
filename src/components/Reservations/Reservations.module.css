@@ -44,15 +44,28 @@
 
 .data {
   width: 60%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  padding: 0rem 2rem;
+}
+
+.data__selector {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.purpose__input {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
 }
 
 .data__btn {
-  grid-column: span 3;
-  justify-self: center;
   background-color: #defbd2;
+  max-width: 15rem;
 }
