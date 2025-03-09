@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "../sharedStyles/selector.module.css";
+import pickerStyles from "../sharedStyles/picker.module.css";
+import inputFieldStyles from "../sharedStyles/inputField.module.css";
 import DatePicker from "react-datepicker";
 
 function DateSelector() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   return (
-    <div className={styles.container}>
+    <div className={inputFieldStyles.container}>
       <FontAwesomeIcon
-        className={styles.icon}
+        className={inputFieldStyles.icon}
         icon="calendar"
       ></FontAwesomeIcon>
       <DatePicker
-        className={styles.picker}
+        className={pickerStyles.picker}
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         dateFormat="dd/MM/yyyy"

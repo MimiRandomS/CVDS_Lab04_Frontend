@@ -5,6 +5,18 @@ import {
   faCircleInfo,
   faCalendar,
   faClock,
+  faPencil,
+  faArrowRight,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUser, faList, faCircleInfo, faCalendar, faClock);
+library.add(
+  faUser,
+  faList,
+  faCircleInfo,
+  faCalendar,
+  faClock,
+  faPencil,
+  faArrowRight,
+  faArrowLeft
+);
