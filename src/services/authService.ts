@@ -18,6 +18,8 @@ export const signup = async (data: SignUpRequest) => {
   try {
     const response = await api.post<User>("/auth/signup", data);
     localStorage.setItem("userId", response.data.id.toString());
+    localStorage.setItem("userName", response.data.name.toString());
+    localStorage.setItem("userEmail", response.data.email.toString());
     return response.data;
   } catch (error: any) {
     const errorMessage =
