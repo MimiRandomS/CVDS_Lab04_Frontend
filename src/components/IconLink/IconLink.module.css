@@ -1,3 +1,8 @@
+.icoButton{
+    background: none;
+    border: none;
+}
+
 .ico { 
     height: auto;
     max-width: 2rem;
@@ -6,4 +11,5 @@
 
 .ico:hover { 
     transform: scale(1.1);
+    cursor: pointer;
 }

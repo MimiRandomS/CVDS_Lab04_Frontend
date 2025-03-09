@@ -1,16 +1,16 @@
 import styles from "./IconLink.module.css";
 
 type Props = {
-  readonly href: string;
   readonly src: string;
   readonly alt: string;
+  readonly onClick?: () => void;
 };
 
-function IconLink({ href, src, alt }: Props) {
+function IconLink({ src, alt, onClick }: Props) {
   return (
-    <a href={href}>
+    <button className={styles.icoButton} onClick={onClick}>
       <img src={src} alt={alt} className={styles.ico} />
-    </a>
+    </button>
   );
 }
 
