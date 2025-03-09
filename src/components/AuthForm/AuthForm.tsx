@@ -19,7 +19,11 @@ function AuthForm({ type, children }: Props) {
     <div className={styles.container}>
       <h1 className={styles.title}>{text}</h1>
       <div className={styles.form}>{children}</div>
-      <Button text={text} className={styles.btn}></Button>
+      <Button
+        text={text}
+        className={styles.btn}
+        navigateTo="/reservations"
+      ></Button>
       <p className={styles.linkText}>
         {linkText}
         <Link to={linkPath} className={styles.link}>
