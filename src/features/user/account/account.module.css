@@ -65,12 +65,12 @@
 }
 
 .data__update {
-  background-color: antiquewhite;
-  height: inherit;
-  width: 30%;
+  width: 25%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 2rem; 
 }
 
 .btnContainer {
