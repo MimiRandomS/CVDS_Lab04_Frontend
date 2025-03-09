@@ -1,8 +1,9 @@
 import Modal from "../../Modal/Modal";
 import Styles from "./DetailReservation.module.css";
-import DateSelector from "../../Reservations/DateSelector/DateSelector";
+import Button from "../../Button/Button";
 
 type Reservation = {
+  id: string;
   lab: string;
   date: string;
   startTime: string;
@@ -14,31 +15,46 @@ type Props = {
   reservation: Reservation | null;
   isOpen: boolean;
   onClose: () => void;
+  onCancelReservation: () => void;
 };
 
-function DetailReservation({ reservation, isOpen, onClose }: Props) {
-  const parsedDate = reservation ? new Date(reservation.date) : null;
-
+function DetailReservation({
+  reservation,
+  isOpen,
+  onClose,
+  onCancelReservation,
+}: Props) {
   return (
     <Modal title="Reserva" isOpen={isOpen} onClose={onClose}>
       {reservation ? (
         <div className={Styles.main}>
           <div className={Styles.container}>
             <div className={Styles.row}>
-              <p>
-                <strong>Laboratorio:</strong> {reservation.lab}
-              </p>
-              <p>
-                <strong>Hora de inicio:</strong> {reservation.startTime}
-              </p>
-              <p>
-                <strong>Hora de fin:</strong> {reservation.endTime}
-              </p>
-              <p>
-                <strong>Propósito:</strong> {reservation.purpose}
-              </p>
-              
-              <DateSelector initialDate={parsedDate} className={Styles.date} />
+              <div>
+                <span>Fecha:</span> {reservation.date}
+              </div>
+              <div>
+                <span>Laboratorio:</span> {reservation.lab}
+              </div>
+            </div>
+            <div className={Styles.row}>
+              <div>
+                <span>Hora:</span> {reservation.startTime} -{" "}
+                {reservation.endTime}
+              </div>
+            </div>
+            <div className={Styles.row}>
+              <div>
+                <span>Propósito:</span> {reservation.purpose}
+              </div>
+            </div>
+            <div className={Styles.row}>
+              <Button
+                text="Cancelar Reserva"
+                className={Styles.btn1}
+                onClick={onCancelReservation}
+              />
+              <Button text="Ok" className={Styles.btn2} onClick={onClose} />
             </div>
           </div>
         </div>

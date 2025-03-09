@@ -1,28 +1,26 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "../sharedStyles/selector.module.css";
+import pickerStyles from "../sharedStyles/picker.module.css";
+import inputFieldStyles from "../sharedStyles/inputField.module.css";
 import DatePicker from "react-datepicker";
-import clsx from "clsx";
 
-type Props = {
-  initialDate: Date | null;
-  className?: string;
-};
-
-function DateSelector({ initialDate, className }: Props) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate);
+function DateSelector() {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   return (
-    <div className={styles.container}>
-      <FontAwesomeIcon className={styles.icon} icon="calendar" />
+    <div className={inputFieldStyles.container}>
+      <FontAwesomeIcon
+        className={inputFieldStyles.icon}
+        icon="calendar"
+      ></FontAwesomeIcon>
       <DatePicker
-        className={clsx(styles.picker, className)}
+        className={pickerStyles.picker}
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         dateFormat="dd/MM/yyyy"
         placeholderText="Fecha"
         minDate={new Date()}
-      />
+      ></DatePicker>
     </div>
   );
 }
