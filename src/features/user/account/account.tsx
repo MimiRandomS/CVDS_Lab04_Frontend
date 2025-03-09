@@ -3,6 +3,9 @@ import styles from "./account.module.css";
 import MainLayout from "../../../layouts/MainLayout/MainLayout";
 import LateralBar from "../../../components/LateralBar/LateralBar";
 import Button from "../../../components/Button/Button";
+import ChangeName from "../../../components/User/Update/ChangeName/changeName";
+import ChangePassword from "../../../components/User/Update/ChangePassword/changePassword";
+import DeleteAccount from "../../../components/User/Update/DeleteAccount/deleteAccount";
 
 function account() {
   const navigate = useNavigate();
@@ -40,7 +43,11 @@ function account() {
                   </p>
                 </div>
               </div>
-              <div className={styles.data__update}>Aqui van los botones</div>
+              <div className={styles.data__update}>
+                <ChangeName></ChangeName>
+                <ChangePassword></ChangePassword>
+                <DeleteAccount></DeleteAccount>
+              </div>
             </div>
             <div className={styles.btnContainer}>
               <Button
