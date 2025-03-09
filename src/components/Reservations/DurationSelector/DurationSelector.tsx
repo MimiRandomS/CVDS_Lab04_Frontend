@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./DurationSelector.module.css";
-import selectorStyles from "../sharedStyles/selector.module.css";
+import inputFieldStyles from "../sharedStyles/inputField.module.css";
 import listStyles from "../sharedStyles/labsList.module.css";
 
 type Props = {
@@ -18,9 +18,9 @@ function DurationSelector({ items }: Props) {
   };
 
   return (
-    <div className={`${selectorStyles.container} ${listStyles.container}`}>
+    <div className={`${inputFieldStyles.container} ${listStyles.container}`}>
       <FontAwesomeIcon
-        className={selectorStyles.icon}
+        className={inputFieldStyles.icon}
         icon="clock"
       ></FontAwesomeIcon>
       <button className={styles.btn} onClick={() => setIsOpen(!isOpen)}>
