@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 type Props = {
   readonly type: "login" | "signup";
   readonly children: React.ReactNode;
+  readonly onSubmit: (e: React.FormEvent) => void;
 };
 
-function AuthForm({ type, children }: Props) {
+function AuthForm({ type, children, onSubmit }: Props) {
   const text = type === "login" ? "Iniciar sesion" : "Registrarse";
   const linkText =
     type === "login" ? "¿No tienes cuenta? " : "¿Ya tienes una cuenta? ";
@@ -18,12 +19,10 @@ function AuthForm({ type, children }: Props) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{text}</h1>
-      <div className={styles.form}>{children}</div>
-      <Button
-        text={text}
-        className={styles.btn}
-        navigateTo="/reservations"
-      ></Button>
+      <form className={styles.form} onSubmit={onSubmit}>
+        {children}
+        <Button type="submit" text={text} className={styles.btn}></Button>
+      </form>
       <p className={styles.linkText}>
         {linkText}
         <Link to={linkPath} className={styles.link}>
