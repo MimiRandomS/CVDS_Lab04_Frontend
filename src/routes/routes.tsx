@@ -6,7 +6,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/userReservations" replace />} />
-      <Route path="/userReservations" element={<UserReservations />} />
+      <Route path="/userReservations" element={<UserReservations userId="1032373105" />} />
     </Routes>
   );
 }

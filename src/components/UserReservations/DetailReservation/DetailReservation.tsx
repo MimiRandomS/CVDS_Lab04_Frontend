@@ -1,15 +1,7 @@
 import Modal from "../../Modal/Modal";
 import Styles from "./DetailReservation.module.css";
 import Button from "../../Button/Button";
-
-type Reservation = {
-  id: string;
-  lab: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  purpose: string;
-};
+import { Reservation } from "../../../services/reservationService";
 
 type Props = {
   reservation: Reservation | null;
