@@ -3,16 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import btnStyles from "../sharedStyles/labsInfoBtn.module.css";
 import listStyles from "../sharedStyles/labsList.module.css";
 
+interface LabOption {
+  id: string;
+  name: string;
+}
+
 type Props = {
-  readonly items: string[];
+  readonly items: LabOption[];
   readonly onSelectLab: (lab: string) => void;
 };
 
 function LabSelection({ items, onSelectLab }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelection = (item: string) => {
-    onSelectLab(item);
+  const handleSelection = (labId: string) => {
+    onSelectLab(labId);
     setIsOpen(false);
   };
 
@@ -30,13 +35,13 @@ function LabSelection({ items, onSelectLab }: Props) {
       <ul
         className={`${listStyles.list} ${isOpen ? listStyles.listVisible : ""}`}
       >
-        {items.map((item) => (
-          <li key={item} className={listStyles.item}>
+        {items.map((lab) => (
+          <li key={lab.id} className={listStyles.item}>
             <button
               className={listStyles.itemBtn}
-              onClick={() => handleSelection(item)}
+              onClick={() => handleSelection(lab.id)}
             >
-              {item}
+              {lab.name}
             </button>
           </li>
         ))}
