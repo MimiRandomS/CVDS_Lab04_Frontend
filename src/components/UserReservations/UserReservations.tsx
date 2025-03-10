@@ -6,15 +6,7 @@ import IconLink from "../IconLink/IconLink";
 import DetailReservation from "./DetailReservation/DetailReservation";
 import CancelReservation from "./CancelReservation/CancelReservation";
 import infoIcon from "../../assets/public/info.ico";
-
-type Reservation = {
-  id: string;
-  lab: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  purpose: string;
-};
+import { Reservation, cancelReservation } from "../../services/reservationService";
 
 type Props = {
   readonly reservations: Reservation[];
@@ -29,12 +21,17 @@ function UserReservations({ reservations }: Props) {
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
   const [reservationToCancel, setReservationToCancel] = useState<Reservation | null>(null);
 
-  const handleCancelReservation = (reservationId: string) => {
-    // Call to backend to cancel reservation
-    setReservationsList((prevList) => prevList.filter((res) => res.id !== reservationId));
-    closeCancelModal();
+  const handleCancelReservation = async (reservationId: string) => {
+    try {
+      await cancelReservation(reservationId);
+      setReservationsList((prevList) => prevList.filter((res) => res.id !== reservationId));
+    } catch (error) {
+      console.error("Error al cancelar la reserva", error);
+      alert("Hubo un problema al cancelar la reserva. Intenta de nuevo.");
+    } finally {
+      closeCancelModal();
+    }
   };
-  
 
   const openModal = (reservation: Reservation) => {
     setSelectedReservation(reservation);
@@ -59,13 +56,15 @@ function UserReservations({ reservations }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.listReservations}>
-        {reservationsList.map((reservation) => (
-          <Card key={reservation.id} title={`Reserva del ${reservation.date}`} className={styles.card}>
-            <Button text="Ver" className={styles.btn} onClick={() => console.log("Abrir nuevo componente")} />
-            <IconLink src={infoIcon} alt="Información reserva" onClick={() => openModal(reservation)} />
-          </Card>
-        ))}
-      </div>
+        {reservationsList
+          .filter((reservation) => reservation.status === "CONFIRMED") // Filtrar solo confirmadas
+          .map((reservation) => (
+            <Card key={reservation.id} title={`Reserva del ${reservation.date}`} className={styles.card}>
+              <Button text="Ver" className={styles.btn} onClick={() => console.log("Abrir nuevo componente")} />
+              <IconLink src={infoIcon} alt="Información reserva" onClick={() => openModal(reservation)} />
+            </Card>
+          ))}
+    </div>
 
       <DetailReservation
         reservation={selectedReservation}

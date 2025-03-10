@@ -1,24 +1,52 @@
+import { useEffect, useState } from "react";
 import MainLayout from "../../../layouts/MainLayout/MainLayout";
 import LateralBar from "../../../components/LateralBar/LateralBar";
 import UserReservations from "../../../components/UserReservations/UserReservations";
+import { getUserReservations } from "../../../services/reservationService";
+import { Reservation } from "../../../services/reservationService";
 
-const reservations = [
-    { id: "1", title: "Reserva 1", lab: "Lab A", date: "2023-01-01", startTime: "10:00", endTime: "11:00", purpose: "Meeting" },
-    { id: "2", title: "Reserva 2", lab: "Lab B", date: "2023-01-02", startTime: "11:00", endTime: "12:00", purpose: "Conference" },
-    { id: "3", title: "Reserva 3", lab: "Lab C", date: "2023-01-03", startTime: "12:00", endTime: "13:00", purpose: "Workshop" },
-    { id: "4", title: "Reserva 4", lab: "Lab D", date: "2023-01-04", startTime: "13:00", endTime: "14:00", purpose: "Seminar" },
-    
-];
 
-const UserReservationsPage = () => {
-    return (
-        <MainLayout 
-            leftContent={<LateralBar />} 
-            rightContent={
-                <UserReservations reservations={reservations} />
-            }
-        />
-    );
+type UserReservationsPageProps = {
+  userId: string;
+};
+
+const UserReservationsPage: React.FC<UserReservationsPageProps> = ({
+  userId,
+}) => {
+  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        const data = await getUserReservations(userId);
+        setReservations(data);
+      } catch (err) {
+        console.error("Error fetching reservations", err);
+        setError("No se pudieron cargar las reservas.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReservations();
+  }, [userId]);
+
+  return (
+    <MainLayout
+      leftContent={<LateralBar />}
+      rightContent={
+        loading ? (
+          <p>Cargando reservas...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <UserReservations reservations={reservations} />
+        )
+      }
+    />
+  );
 };
 
 export default UserReservationsPage;
