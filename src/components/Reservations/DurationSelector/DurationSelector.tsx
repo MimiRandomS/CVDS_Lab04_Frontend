@@ -6,16 +6,12 @@ import listStyles from "../sharedStyles/labsList.module.css";
 
 type Props = {
   readonly items: number[];
+  readonly selectedDuration: number;
+  readonly onChange: (duration: number) => void;
 };
 
-function DurationSelector({ items }: Props) {
+function DurationSelector({ items, selectedDuration, onChange }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [duration, setDuration] = useState(30);
-
-  const handleSelect = (item: number) => {
-    setDuration(item);
-    setIsOpen(false);
-  };
 
   return (
     <div className={`${inputFieldStyles.container} ${listStyles.container}`}>
@@ -24,7 +20,7 @@ function DurationSelector({ items }: Props) {
         icon="clock"
       ></FontAwesomeIcon>
       <button className={styles.btn} onClick={() => setIsOpen(!isOpen)}>
-        {duration} min
+        {selectedDuration} min
       </button>
       <ul
         className={`${listStyles.list} ${
@@ -35,7 +31,10 @@ function DurationSelector({ items }: Props) {
           <li key={item} className={listStyles.item}>
             <button
               className={listStyles.itemBtn}
-              onClick={() => handleSelect(item)}
+              onClick={() => {
+                onChange(item);
+                setIsOpen(false);
+              }}
             >
               {item} min
             </button>
