@@ -1,20 +1,15 @@
 import api from "./api";
 
-export interface User {
+interface User {
   id: string;
   name: string;
   email: string;
   password: string;
 }
 
-export interface SignUpRequest {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-}
+type SignUpRequest = User;
 
-export interface LogInRequest {
+interface LogInRequest {
   email: string;
   password: string;
 }
@@ -37,22 +32,24 @@ const handleError = (error: any): never => {
   throw new Error(errorMessage);
 };
 
-export const signup = async (data: SignUpRequest) => {
+const signup = async (data: SignUpRequest) => {
   try {
     const response = await api.post<User>("/auth/signup", data);
     saveUser(response.data);
     return response.data;
   } catch (error: any) {
-    handleError(error);
+    return handleError(error);
   }
 };
 
-export const login = async (data: LogInRequest) => {
+const login = async (data: LogInRequest) => {
   try {
     const response = await api.post<User>("/auth/login", data);
     saveUser(response.data);
     return response.data;
   } catch (error: any) {
-    handleError(error);
+    return handleError(error);
   }
 };
+
+export { signup, login };
