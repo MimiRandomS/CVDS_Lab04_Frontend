@@ -2,20 +2,15 @@ import { useEffect, useState } from "react";
 import MainLayout from "../../../layouts/MainLayout/MainLayout";
 import LateralBar from "../../../components/LateralBar/LateralBar";
 import UserReservations from "../../../components/UserReservations/UserReservations";
-import { getUserReservations } from "../../../services/reservationService";
-import { Reservation } from "../../../services/reservationService";
+import { getUserReservations, Reservation } from "../../../services/reservationService";
+import { TailSpin } from "react-loading-icons";
 
-
-type UserReservationsPageProps = {
-  userId: string;
-};
-
-const UserReservationsPage: React.FC<UserReservationsPageProps> = ({
-  userId,
-}) => {
+const UserReservationsPage: React.FC = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const userId = localStorage.getItem("userId") || "1032373105";
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -38,9 +33,31 @@ const UserReservationsPage: React.FC<UserReservationsPageProps> = ({
       leftContent={<LateralBar />}
       rightContent={
         loading ? (
-          <p>Cargando reservas...</p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+              backgroundColor: "white",
+            }}
+          >
+            <TailSpin stroke="#4F46E5" width={80} height={80} />
+          </div>
         ) : error ? (
-          <p>{error}</p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+              backgroundColor: "white",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            <p>{error}</p>
+          </div>
         ) : (
           <UserReservations reservations={reservations} />
         )

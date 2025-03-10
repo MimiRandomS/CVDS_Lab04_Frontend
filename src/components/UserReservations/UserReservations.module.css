@@ -40,3 +40,26 @@
     max-width: 350px;
     min-height: 160px;
 }
+
+.noReservationsCard {
+    width: 35%;
+    height: 40%;
+    min-width: 300px;
+    min-height: 300px;
+    margin: auto;
+    text-align: center;
+    background-color: #f3f4f6;
+}
+
+.noReservationsCardBody{
+    background-color: red;
+}
+
+.noReservationsCardTitle {
+    background-color: blue;
+}
+
+.noReservationsText {
+    font-size: 1rem;
+    color: whitesmoke;
+}

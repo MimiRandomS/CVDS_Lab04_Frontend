@@ -55,17 +55,22 @@ function UserReservations({ reservations }: Props) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.listReservations}>
-        {reservationsList
-          .filter((reservation) => reservation.status === "CONFIRMED") // Filtrar solo confirmadas
+    <div className={styles.listReservations}>
+      {reservationsList.filter((reservation) => reservation.status === "CONFIRMED").length === 0 ? (
+        <Card title="No tienes reservas confirmadas" className={styles.noReservationsCard}>
+          <p className={styles.noReservationsText}>Parece que aún no has realizado ninguna reserva.</p>
+        </Card>
+      ) : (
+        reservationsList
+          .filter((reservation) => reservation.status === "CONFIRMED")
           .map((reservation) => (
             <Card key={reservation.id} title={`Reserva del ${reservation.date}`} className={styles.card}>
               <Button text="Ver" className={styles.btn} onClick={() => console.log("Abrir nuevo componente")} />
               <IconLink src={infoIcon} alt="Información reserva" onClick={() => openModal(reservation)} />
             </Card>
-          ))}
+          ))
+      )}
     </div>
-
       <DetailReservation
         reservation={selectedReservation}
         isOpen={modalOpen}
