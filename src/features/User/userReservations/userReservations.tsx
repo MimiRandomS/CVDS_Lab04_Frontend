@@ -10,23 +10,29 @@ const UserReservationsPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const userId = localStorage.getItem("userId") || "1032373105";
-
   useEffect(() => {
     const fetchReservations = async () => {
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        setError("Debes iniciar sesión para ver tus reservas.");
+        setLoading(false);
+        return;
+      }
+
       try {
         const data = await getUserReservations(userId);
         setReservations(data);
       } catch (err) {
         console.error("Error fetching reservations", err);
-        setError("No se pudieron cargar las reservas.");
+        setError("No se pudieron cargar las reservas. Intenta nuevamente.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchReservations();
-  }, [userId]);
+  }, []);
 
   return (
     <MainLayout

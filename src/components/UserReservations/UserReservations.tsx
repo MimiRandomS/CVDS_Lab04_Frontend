@@ -65,7 +65,10 @@ function UserReservations({ reservations }: Props) {
           .filter((reservation) => reservation.status === "CONFIRMED")
           .map((reservation) => (
             <Card key={reservation.id} title={`Reserva del ${reservation.date}`} className={styles.card}>
+            {/*
+              TODO: Implementar botón para ver detalles de reserva.
               <Button text="Ver" className={styles.btn} onClick={() => console.log("Abrir nuevo componente")} />
+            */}
               <IconLink src={infoIcon} alt="Información reserva" onClick={() => openModal(reservation)} />
             </Card>
           ))
