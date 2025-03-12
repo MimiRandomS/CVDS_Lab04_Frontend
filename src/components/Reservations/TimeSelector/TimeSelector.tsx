@@ -5,9 +5,12 @@ import inputFieldStyles from "../sharedStyles/inputField.module.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-function TimeSelector() {
-  const [selectedHour, setSelectedHour] = useState<Date | null>(null);
+type props = {
+  readonly selectedTime: Date | null;
+  readonly onChange: (time: Date | null) => void;
+};
 
+function TimeSelector({ selectedTime, onChange }: props) {
   return (
     <div className={inputFieldStyles.container}>
       <FontAwesomeIcon
@@ -16,15 +19,15 @@ function TimeSelector() {
       ></FontAwesomeIcon>
       <DatePicker
         className={pickerStyles.picker}
-        selected={selectedHour}
-        onChange={(date) => setSelectedHour(date)}
+        selected={selectedTime}
+        onChange={onChange}
         showTimeSelect
         showTimeSelectOnly
         timeIntervals={30}
-        timeFormat="h:mm aa"
-        dateFormat="h:mm aa"
-        minTime={new Date(new Date().setHours(7, 0, 0, 0))}
-        maxTime={new Date(new Date().setHours(19, 0, 0, 0))}
+        timeFormat="HH:mm"
+        dateFormat="HH:mm"
+        minTime={new Date(new Date().setHours(7, 0))}
+        maxTime={new Date(new Date().setHours(19, 0))}
         placeholderText="Hora"
       ></DatePicker>
     </div>

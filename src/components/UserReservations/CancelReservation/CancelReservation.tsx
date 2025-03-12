@@ -1,4 +1,4 @@
-import Modal from "../../Modal/Modal";
+import Modal from "../../User/Update/Modal/Modal";
 import Styles from "./CancelReservation.module.css";
 import Button from "../../Button/Button";
 

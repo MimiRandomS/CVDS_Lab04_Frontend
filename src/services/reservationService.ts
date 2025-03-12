@@ -11,6 +11,28 @@ export type Reservation = {
     status: "CONFIRMED" | "CANCELED";
 };
 
+
+type CreateReservationRequest = Reservation;
+
+const handleError = (error: any): never => {
+  const errorMessage =
+    error.response?.data?.error ||
+    (typeof error.response?.data === "string"
+      ? error.response.data
+      : "Error en la autenticación");
+
+  throw new Error(errorMessage);
+};
+
+export const createReservation = async (data: CreateReservationRequest) => {
+  try {
+    const response = await api.post<Reservation>("/reservations", data);
+    return response.data;
+  } catch (error: any) {
+    return handleError(error);
+  }
+};
+
 export const getUserReservations = async (
   userId: string
 ): Promise<Reservation[]> => {
