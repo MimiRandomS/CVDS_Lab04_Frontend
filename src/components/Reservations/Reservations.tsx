@@ -95,7 +95,7 @@ function Reservations() {
           ></Button>
         </div>
       </div>
-      <WeeklyCalendar />
+      <WeeklyCalendar labId={form.selectedLab} />
     </div>
   );
 }
