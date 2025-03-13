@@ -20,8 +20,10 @@ const getReservationsGrid = (reservations: Reservation[]) => {
     const startRow = timeIndex(reservation.startTime);
     const endRow = timeIndex(reservation.endTime);
 
-    for (let i = startRow; i < endRow; i++) {
-      calendarGrid[i][col] = reservation.id;
+    if (reservation.status === "CONFIRMED") {
+      for (let i = startRow; i < endRow; i++) {
+        calendarGrid[i][col] = reservation.id;
+      }
     }
   });
 
