@@ -6,6 +6,7 @@ import Account from "../features/user/account/account";
 import ChangeName from "../components/User/Update/ChangeName/changeName";
 import ChangePassword from "../components/User/Update/ChangePassword/changePassword";
 import DeleteAccount from "../components/User/Update/DeleteAccount/deleteAccount";
+import UserReservations from "../features/User/myReservations/userReservations";
 
 function AppRoutes() {
   return (
@@ -18,8 +19,11 @@ function AppRoutes() {
       <Route path="/change-name" element={<ChangeName />} />
       <Route path="/change-password" element={<ChangePassword />} />
       <Route path="/delete-account" element={<DeleteAccount />} />
+      <Route path="/myReservations" element={<UserReservations/>} />
     </Routes>
   );
 }
 
 export default AppRoutes;
+
+
