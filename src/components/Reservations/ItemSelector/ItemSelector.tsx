@@ -1,26 +1,39 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./DurationSelector.module.css";
+import styles from "./ItemSelector.module.css";
 import inputFieldStyles from "../sharedStyles/inputField.module.css";
 import listStyles from "../sharedStyles/labsList.module.css";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 type Props = {
+  readonly className?: string;
   readonly items: number[];
-  readonly selectedDuration: number;
-  readonly onChange: (duration: number) => void;
+  readonly text: string;
+  readonly icon: IconDefinition;
+  readonly suffix?: string;
+  readonly onChange: (item: number) => void;
 };
 
-function DurationSelector({ items, selectedDuration, onChange }: Props) {
+function ItemSelector({
+  className,
+  items,
+  text,
+  icon,
+  suffix,
+  onChange,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={`${inputFieldStyles.container} ${listStyles.container}`}>
+    <div
+      className={`${inputFieldStyles.container} ${listStyles.container} ${className}`}
+    >
       <FontAwesomeIcon
         className={inputFieldStyles.icon}
-        icon="clock"
+        icon={icon}
       ></FontAwesomeIcon>
       <button className={styles.btn} onClick={() => setIsOpen(!isOpen)}>
-        {selectedDuration} min
+        {text}
       </button>
       <ul
         className={`${listStyles.list} ${
@@ -36,7 +49,7 @@ function DurationSelector({ items, selectedDuration, onChange }: Props) {
                 setIsOpen(false);
               }}
             >
-              {item} min
+              {item} {suffix ?? ""}
             </button>
           </li>
         ))}
@@ -45,4 +58,4 @@ function DurationSelector({ items, selectedDuration, onChange }: Props) {
   );
 }
 
-export default DurationSelector;
+export default ItemSelector;

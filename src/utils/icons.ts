@@ -8,6 +8,7 @@ import {
   faPencil,
   faArrowRight,
   faArrowLeft,
+  faCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -18,5 +19,6 @@ library.add(
   faClock,
   faPencil,
   faArrowRight,
-  faArrowLeft
+  faArrowLeft,
+  faCircleExclamation
 );
