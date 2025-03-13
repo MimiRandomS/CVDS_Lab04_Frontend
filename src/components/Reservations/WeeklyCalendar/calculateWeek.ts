@@ -13,10 +13,16 @@ const getWeekRange = (weekOffset: number) => {
   const sunday = new Date(monday);
   sunday.setDate(monday.getDate() + 6);
 
+  return { monday, sunday };
+};
+
+const formatWeekRange = (weekOffset: number) => {
+  const { monday, sunday } = getWeekRange(weekOffset);
+
   const formatDate = (date: Date) =>
     `${date.getDate()} de ${date.toLocaleString("es-ES", { month: "long" })}`;
 
   return `${formatDate(monday)} - ${formatDate(sunday)}`;
 };
 
-export { getWeekRange };
+export { getWeekRange, formatWeekRange };
