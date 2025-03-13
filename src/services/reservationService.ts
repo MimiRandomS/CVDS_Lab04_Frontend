@@ -14,6 +14,12 @@ export type Reservation = {
 
 type CreateReservationRequest = Omit<Reservation, "id" | "status">;
 
+type GetWeekReservationsRequest = {
+  labId: string;
+  startDate: string;
+  endDate: string;
+};
+
 const handleError = (error: any): never => {
   const errorMessage =
     error.response?.data?.error ||
@@ -29,6 +35,19 @@ export const createReservation = async (
 ): Promise<Reservation> => {
   try {
     const response = await api.post<Reservation>("/reservations", data);
+    return response.data;
+  } catch (error: any) {
+    return handleError(error);
+  }
+};
+
+export const getWeekReservations = async (
+  data: GetWeekReservationsRequest
+): Promise<Reservation[]> => {
+  try {
+    const response = await api.get<Reservation[]>("/reservations/range", {
+      params: { lab: data.labId, date1: data.startDate, date2: data.endDate },
+    });
     return response.data;
   } catch (error: any) {
     return handleError(error);
