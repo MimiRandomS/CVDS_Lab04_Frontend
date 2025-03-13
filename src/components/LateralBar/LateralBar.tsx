@@ -4,7 +4,7 @@ import styles from "./LateralBar.module.css";
 
 function LateralBar() {
   const items = ["Reservas", "Mis reservas"];
-  const paths = ["/reservations", "/reservations"];
+  const paths = ["/reservations", "/myReservations"];
   const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
