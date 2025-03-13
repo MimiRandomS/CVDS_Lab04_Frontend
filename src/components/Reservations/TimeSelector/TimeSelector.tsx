@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import pickerStyles from "../sharedStyles/picker.module.css";
 import inputFieldStyles from "../sharedStyles/inputField.module.css";
@@ -26,8 +25,8 @@ function TimeSelector({ selectedTime, onChange }: props) {
         timeIntervals={30}
         timeFormat="HH:mm"
         dateFormat="HH:mm"
-        minTime={new Date(new Date().setHours(7, 0))}
-        maxTime={new Date(new Date().setHours(19, 0))}
+        minTime={new Date(new Date().setHours(7, 0, 0, 0))}
+        maxTime={new Date(new Date().setHours(19, 0, 0, 0))}
         placeholderText="Hora"
       ></DatePicker>
     </div>
