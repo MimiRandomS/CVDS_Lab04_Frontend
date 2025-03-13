@@ -19,6 +19,7 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .labs__labName {
@@ -55,7 +56,23 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+.data__selector:first-of-type > * {
+  width: 35%;
+}
+
+.data__selector:first-of-type > *:last-child {
+  width: 25%;
+}
+
+.selector__priority {
+  width: 15%;
+}
+
+.purpose {
+  width: 85%;
 }
 
 .purpose__input {
