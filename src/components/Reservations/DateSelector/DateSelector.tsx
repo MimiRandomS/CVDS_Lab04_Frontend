@@ -4,9 +4,12 @@ import pickerStyles from "../sharedStyles/picker.module.css";
 import inputFieldStyles from "../sharedStyles/inputField.module.css";
 import DatePicker from "react-datepicker";
 
-function DateSelector() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+type props = {
+  readonly selectedDate: Date | null;
+  readonly onChange: (date: Date | null) => void;
+};
 
+function DateSelector({ selectedDate, onChange }: props) {
   return (
     <div className={inputFieldStyles.container}>
       <FontAwesomeIcon
@@ -16,7 +19,7 @@ function DateSelector() {
       <DatePicker
         className={pickerStyles.picker}
         selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
+        onChange={onChange}
         dateFormat="dd/MM/yyyy"
         placeholderText="Fecha"
         minDate={new Date()}
