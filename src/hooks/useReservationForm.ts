@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { createReservation } from "../services/reservationService";
 import { validateReservationForm } from "../components/Reservations/validateReservationForm";
-import { Lab } from "./useLabs";
+import Lab from "../model/Lab";
+import getUserFromLocalStorage from "../utils/getFromSessionStorage";
 
 interface FormState {
   selectedLab: string;
@@ -13,7 +14,7 @@ interface FormState {
 }
 
 const initialFormState: FormState = {
-  selectedLab: "",
+  selectedLab: "67c52c27c36ef003a1db0b2f",
   selectedDate: null,
   selectedTime: null,
   selectedDuration: 30,
@@ -30,7 +31,7 @@ function useReservationForm({ labs }: Props) {
 
   // Si labs cambia y aún no hay un lab seleccionado, se deja por defecto el primero.
   useEffect(() => {
-    if (labs.length > 0 && form.selectedLab === "") {
+    if (labs.length > 0 && !form.selectedLab) {
       setForm((prev) => ({ ...prev, selectedLab: labs[0].id }));
     }
   }, [labs, form.selectedLab]);
@@ -41,12 +42,14 @@ function useReservationForm({ labs }: Props) {
       hour: "2-digit",
       minute: "2-digit",
     });
+
     const endDate = new Date(form.selectedTime!);
     endDate.setMinutes(endDate.getMinutes() + form.selectedDuration);
     const endTime = endDate.toLocaleTimeString("en-GB", {
       hour: "2-digit",
       minute: "2-digit",
     });
+
     return { dateStr, startTime, endTime };
   };
 
@@ -57,15 +60,15 @@ function useReservationForm({ labs }: Props) {
       return;
     }
 
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      alert("No se encontró el usuario");
+    const user = getUserFromLocalStorage();
+    if (!user) {
+      alert("No se encontro el usuario");
       return;
     }
 
     const { dateStr, startTime, endTime } = formatDateAndTime();
     const reservationData = {
-      userId,
+      userId: user.id,
       labId: form.selectedLab,
       date: dateStr,
       startTime,

@@ -20,16 +20,19 @@ const durations = [30, 60, 90, 120, 150, 180];
 const priority = [1, 2, 3, 4, 5];
 
 function Reservations() {
-  const labs = useLabs();
+  const { labs, isLoading } = useLabs();
   const { form, setForm, handleSubmit } = useReservationForm({ labs });
+
+  if (isLoading) {
+    return <h2>No hay laboratorios disponibles</h2>;
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.info}>
         <div className={styles.labs__container}>
           <h2 className={styles.labs__labName}>
-            {labs.find((lab) => lab.id === form.selectedLab)?.name ??
-              "Cargando..."}
+            {labs.find((lab) => lab.id === form.selectedLab)?.name}
           </h2>
           <div className={styles.labs__icons}>
             <LabSelection
