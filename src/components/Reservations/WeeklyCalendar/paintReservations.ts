@@ -1,4 +1,4 @@
-import { Reservation } from "../../../services/reservationService";
+import Reservation from "../../../model/Reservation";
 
 const dayIndex = (date: string) => {
   const day = new Date(date).getDay();
@@ -20,10 +20,8 @@ const getReservationsGrid = (reservations: Reservation[]) => {
     const startRow = timeIndex(reservation.startTime);
     const endRow = timeIndex(reservation.endTime);
 
-    if (reservation.status === "CONFIRMED") {
-      for (let i = startRow; i < endRow; i++) {
-        calendarGrid[i][col] = reservation.id;
-      }
+    for (let i = startRow; i < endRow; i++) {
+      calendarGrid[i][col] = reservation.id;
     }
   });
 
@@ -38,4 +36,8 @@ const reserved = (
   return !!reservationsGrid[row][col];
 };
 
-export { getReservationsGrid, reserved };
+const resertReservationsGrid = () => {
+  return Array.from({ length: 25 }, () => Array(7).fill(null));
+};
+
+export { getReservationsGrid, reserved, resertReservationsGrid };

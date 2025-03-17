@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import MainLayout from "../../../layouts/MainLayout/MainLayout";
 import LateralBar from "../../../components/LateralBar/LateralBar";
 import UserReservations from "../../../components/UserReservations/UserReservations";
-import { getUserReservations, Reservation } from "../../../services/reservationService";
+import { getUserReservations } from "../../../services/reservationService";
+import Reservation from "../../../model/Reservation";
 import { TailSpin } from "react-loading-icons";
+import getUserFromSessionStorage from "../../../utils/getFromSessionStorage";
 
 const UserReservationsPage: React.FC = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -12,17 +14,12 @@ const UserReservationsPage: React.FC = () => {
 
   useEffect(() => {
     const fetchReservations = async () => {
-      const userId = localStorage.getItem("userId");
-
-      if (!userId) {
-        setError("Debes iniciar sesión para ver tus reservas.");
-        setLoading(false);
-        return;
-      }
+      const user = getUserFromSessionStorage();
+      const userId = user.id;
 
       try {
         const data = await getUserReservations(userId);
-        setReservations(data);
+        setReservations(data.data!);
       } catch (err) {
         console.error("Error fetching reservations", err);
         setError("No se pudieron cargar las reservas. Intenta nuevamente.");

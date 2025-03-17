@@ -2,14 +2,10 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import btnStyles from "../sharedStyles/labsInfoBtn.module.css";
 import listStyles from "../sharedStyles/labsList.module.css";
-
-interface LabOption {
-  id: string;
-  name: string;
-}
+import Lab from "../../../model/Lab";
 
 type Props = {
-  readonly items: LabOption[];
+  readonly items: Lab[];
   readonly onSelectLab: (lab: string) => void;
 };
 
