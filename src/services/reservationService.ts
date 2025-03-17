@@ -1,16 +1,7 @@
+import ApiResponse from "../model/ApiResponse";
+import handleApiError from "../utils/HandleError";
 import api from "./api";
-
-export type Reservation = {
-  id: string;
-  userId: string;
-  labId: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  purpose: string;
-  status: "CONFIRMED" | "CANCELED";
-  priority: number;
-};
+import Reservation from "../model/Reservation";
 
 type CreateReservationRequest = Omit<Reservation, "id" | "status">;
 
@@ -20,37 +11,37 @@ type GetWeekReservationsRequest = {
   endDate: string;
 };
 
-const handleError = (error: any): never => {
-  const errorMessage =
-    error.response?.data?.error ||
-    (typeof error.response?.data === "string"
-      ? error.response.data
-      : "Error en la autenticación");
-
-  throw new Error(errorMessage);
-};
-
 export const createReservation = async (
   data: CreateReservationRequest
-): Promise<Reservation> => {
+): Promise<ApiResponse<Reservation>> => {
   try {
-    const response = await api.post<Reservation>("/reservations", data);
+    const response = await api.post<ApiResponse<Reservation>>(
+      "/reservations",
+      data
+    );
     return response.data;
   } catch (error: any) {
-    return handleError(error);
+    return handleApiError(error);
   }
 };
 
 export const getWeekReservations = async (
   data: GetWeekReservationsRequest
-): Promise<Reservation[]> => {
+): Promise<ApiResponse<Reservation[]>> => {
+  if (!data.labId) {
+    console.error("Error: Lab ID está vacío");
+    return Promise.reject(new Error("Lab ID es obligatorio"));
+  }
   try {
-    const response = await api.get<Reservation[]>("/reservations/range", {
-      params: { lab: data.labId, date1: data.startDate, date2: data.endDate },
-    });
+    const response = await api.get<ApiResponse<Reservation[]>>(
+      "/reservations/range",
+      {
+        params: { lab: data.labId, date1: data.startDate, date2: data.endDate },
+      }
+    );
     return response.data;
   } catch (error: any) {
-    return handleError(error);
+    return handleApiError(error);
   }
 };
 

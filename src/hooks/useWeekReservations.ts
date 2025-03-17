@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  getWeekReservations,
-  Reservation,
-} from "../services/reservationService";
+import { getWeekReservations } from "../services/reservationService";
+import Reservation from "../model/Reservation";
 
 const useWeekReservations = (labId: string, date1: Date, date2: Date) => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -21,7 +19,7 @@ const useWeekReservations = (labId: string, date1: Date, date2: Date) => {
           startDate,
           endDate,
         });
-        setReservations(response);
+        setReservations(response.data!);
       } catch (error) {
         alert("Error obteniendo los laboratorios");
       }

@@ -23,7 +23,8 @@ function Signup() {
     e.preventDefault();
     try {
       await signup(formData);
-      navigate("/reservations");
+      alert("Usuario creado");
+      navigate("/login");
     } catch (error: any) {
       alert(error.message);
     }
