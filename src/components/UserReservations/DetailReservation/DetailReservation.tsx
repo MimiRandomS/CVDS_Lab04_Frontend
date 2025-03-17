@@ -1,13 +1,15 @@
 import Modal from "../../User/Update/Modal/Modal";
 import Styles from "./DetailReservation.module.css";
 import Button from "../../Button/Button";
-import { Reservation } from "../../../services/reservationService";
+import Reservation from "../../../model/Reservation";
+import { useLabName } from "../../../hooks/useLabName";
 
 type Props = {
   reservation: Reservation | null;
   isOpen: boolean;
   onClose: () => void;
   onCancelReservation: () => void;
+  labName: string;
 };
 
 function DetailReservation({
@@ -15,6 +17,7 @@ function DetailReservation({
   isOpen,
   onClose,
   onCancelReservation,
+  labName,
 }: Props) {
   return (
     <Modal title="Reserva" isOpen={isOpen} onClose={onClose}>
@@ -26,7 +29,7 @@ function DetailReservation({
                 <span>Fecha:</span> {reservation.date}
               </div>
               <div>
-                <span>Laboratorio:</span> {reservation.lab}
+                <span>Laboratorio:</span> {labName}
               </div>
             </div>
             <div className={Styles.row}>

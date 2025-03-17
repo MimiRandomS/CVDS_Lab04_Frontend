@@ -47,34 +47,26 @@ export const getWeekReservations = async (
 
 export const getUserReservations = async (
   userId: string
-): Promise<Reservation[]> => {
+): Promise<ApiResponse<Reservation[]>> => {
   try {
-    const response = await api.get<Reservation[]>(
+    const response = await api.get<ApiResponse<Reservation[]>>(
       `reservations/user/${userId}`
     );
     return response.data;
   } catch (error: any) {
-    console.error(
-      "Error al obtener reservas:",
-      error.response?.data || error.message
-    );
-    throw error;
+    return handleApiError(error);
   }
 };
 
 export const cancelReservation = async (
   reservationId: string
-): Promise<string> => {
+): Promise<ApiResponse<Reservation>> => {
   try {
-    const response = await api.put<string>(
+    const response = await api.put<ApiResponse<Reservation>>(
       `reservations/cancel/${reservationId}`
     );
     return response.data;
   } catch (error: any) {
-    console.error(
-      "Error al cancelar reserva:",
-      error.response?.data || error.message
-    );
-    throw error;
+    return handleApiError(error);
   }
 };

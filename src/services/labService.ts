@@ -12,4 +12,15 @@ const getLabs = async (): Promise<ApiResponse<Lab[]>> => {
   }
 };
 
-export { getLabs };
+const getLabName = async (labId: string): Promise<ApiResponse<string>> => {
+  try {
+    const response = await api.get<ApiResponse<string>>(
+      `/labs/labName/${labId}`
+    );
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export { getLabs, getLabName };
