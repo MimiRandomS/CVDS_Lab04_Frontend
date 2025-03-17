@@ -8,6 +8,7 @@ import ChangePassword from "../components/User/Update/ChangePassword/changePassw
 import DeleteAccount from "../components/User/Update/DeleteAccount/deleteAccount";
 import UserReservationsPage from "../features/user/myReservations/userReservations";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
+import Analytics from "../features/Analytics/Analytics";
 
 function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ function AppRoutes() {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/delete-account" element={<DeleteAccount />} />
         <Route path="/myReservations" element={<UserReservationsPage />} />
+        <Route path="/Analytics" element={<Analytics />} />
       </Route>
     </Routes>
   );
