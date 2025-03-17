@@ -1,54 +1,74 @@
-# React + TypeScript + Vite
+# 🎯 LABORATORIOS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Escuela Colombiana de Ingeniería**  
+📌 _Ciclos de Vida de Desarrollo de Software_
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 👥 Integrantes del grupo **FENRIR**
 
-## Expanding the ESLint configuration
+- 🏆 **Vicente Garzón Rios**
+- 🏆 **Daniel Alejandro Diaz Camelo**
+- 🏆 **Geronimo Martinez Nuñez**
+- 🏆 **Carlos David Barrero Velasquez**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📌 Caso de Negocio: **Sistema de Reservas de Salones**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Escuela Colombiana de Ingeniería Julio Garavito**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+El proyecto consiste en una aplicación para la gestión de reservas de salones dentro de la **Escuela Colombiana de Ingeniería Julio Garavito**.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+✔️ Los usuarios podrán **consultar la disponibilidad de salones**, realizar reservas y cancelar sus reservas desde una interfaz web.  
+✔️ La aplicación se conectará a un **API REST** desarrollado en **Spring Boot**.  
+✔️ Se utilizará **MongoDB Cloud** o **archivo de texto plano** para la persistencia de datos.
+
+---
+
+## ✅ Requerimientos
+
+🔹 El usuario debe poder **consultar la disponibilidad de laboratorios**.  
+🔹 El usuario debe poder **reservar un laboratorio** especificando **fecha, hora y propósito**.  
+🔹 El usuario debe poder **cancelar sus reservas**.  
+🔹 La aplicación debe **validar** que un laboratorio no se pueda reservar si ya está ocupado.
+
+---
+
+## 🏗️ Épicas
+
+📌 **Backend:** Implementación de un **API REST** para la lógica de negocio y persistencia de datos.
+
+---
+
+## 🚀 Sprints
+
+### 🏁 **Sprint 3**
+
+---
+
+### **Expectativa**
+
+![alt text](public/readme/logSignUpF.png)
+
+![alt text](public/readme/reservationsF.png)
+
+![alt text](public/readme/myReservationsF.png)
+
+![alt text](public/readme/userDetailsF.png)
+
+---
+
+### **Realidad**
+
+![alt text](public/readme/login.png)
+
+![alt text](public/readme/signup.png)
+
+![alt text](public/readme/reservations.png)
+
+![alt text](public/readme/myReservations.png)
+
+![alt text](public/readme/reservationDetails.png)
+
+![alt text](public/readme/userDetails.png)
