@@ -1,0 +1,84 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+}
+
+.header {
+  height: 45%;
+  width: 100%;
+  background-color: #a81d32;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.header__top {
+  height: 65%;
+  width: 100%;
+}
+
+.header__bottom {
+  height: 35%;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 50px 50px 0px 0px;
+}
+
+.header__photo {
+  height: 15rem;
+  width: 15rem;
+  position: absolute;
+  background-color: rgb(232, 232, 232);
+  background-image: url("../../../assets/profile/photo.png");
+  background-position: center 3rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -35%);
+}
+
+.info__name {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.info__data {
+  margin: 3.5rem 5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.data__items {
+  width: 70%;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.item__title {
+  font-weight: 500;
+}
+
+.data__update {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.btnContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  background-color: #e65f5f;
+  color: #fff;
+}
