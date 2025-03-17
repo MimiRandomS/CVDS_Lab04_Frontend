@@ -1,31 +1,26 @@
+import ApiResponse from "../model/ApiResponse";
+import Lab from "../model/Lab";
+import handleApiError from "../utils/HandleError";
 import api from "./api";
 
-interface Lab {
-  id: string;
-  name: string;
-  capacity: number;
-  reservations: string[];
-  equipment: Record<string, number>;
-  location: string;
-}
-
-const handleError = (error: any): never => {
-  const errorMessage =
-    error.response?.data?.error ||
-    (typeof error.response?.data === "string"
-      ? error.response.data
-      : "Error en la autenticación");
-
-  throw new Error(errorMessage);
-};
-
-const getLabs = async (): Promise<Lab[]> => {
+const getLabs = async (): Promise<ApiResponse<Lab[]>> => {
   try {
-    const response = await api.get<Lab[]>("/labs/allLabs");
+    const response = await api.get<ApiResponse<Lab[]>>("/labs/allLabs");
     return response.data;
   } catch (error: any) {
-    return handleError(error);
+    return handleApiError(error);
   }
 };
 
-export { getLabs };
+const getLabName = async (labId: string): Promise<ApiResponse<string>> => {
+  try {
+    const response = await api.get<ApiResponse<string>>(
+      `/labs/labName/${labId}`
+    );
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export { getLabs, getLabName };
