@@ -2,15 +2,29 @@ import { useEffect, useState } from "react";
 import { getWeekReservations } from "../services/reservationService";
 import Reservation from "../model/Reservation";
 
-const useWeekReservations = (labId: string, date1: Date, date2: Date) => {
+type Props = {
+  readonly labId: string;
+  readonly monday: Date;
+  readonly sunday: Date;
+  readonly reservationCreated: boolean;
+};
+
+const useWeekReservations = ({
+  labId,
+  monday,
+  sunday,
+  reservationCreated,
+}: Props) => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const formatDate = () => ({
-    startDate: date1.toISOString().split("T")[0],
-    endDate: date2.toISOString().split("T")[0],
+    startDate: monday.toISOString().split("T")[0],
+    endDate: sunday.toISOString().split("T")[0],
   });
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchWeekReservations = async () => {
       try {
         const { startDate, endDate } = formatDate();
@@ -22,13 +36,15 @@ const useWeekReservations = (labId: string, date1: Date, date2: Date) => {
         setReservations(response.data!);
       } catch (error) {
         alert("Error obteniendo los laboratorios");
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchWeekReservations();
-  }, [labId, date1, date2]);
+  }, [labId, monday, sunday, reservationCreated]);
 
-  return reservations;
+  return { reservations, isLoading };
 };
 
 export default useWeekReservations;
