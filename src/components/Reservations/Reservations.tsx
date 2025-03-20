@@ -15,13 +15,18 @@ import Button from "../Button/Button";
 import WeeklyCalendar from "./WeeklyCalendar/WeeklyCalendar";
 import { useReservationForm } from "../../hooks/useReservationForm";
 import { useLabs } from "../../hooks/useLabs";
+import { useState } from "react";
 
 const durations = [30, 60, 90, 120, 150, 180];
 const priority = [1, 2, 3, 4, 5];
 
 function Reservations() {
+  const [reservationCreated, setReservationCreated] = useState(false);
   const { labs, isLoading } = useLabs();
-  const { form, setForm, handleSubmit } = useReservationForm({ labs });
+  const { form, setForm, handleSubmit } = useReservationForm({
+    labs,
+    onReservationCreated: () => setReservationCreated((prev) => !prev),
+  });
 
   if (isLoading) {
     return <h2>No hay laboratorios disponibles</h2>;
@@ -98,7 +103,10 @@ function Reservations() {
           ></Button>
         </div>
       </div>
-      <WeeklyCalendar labId={form.selectedLab} />
+      <WeeklyCalendar
+        labId={form.selectedLab}
+        reservationCreated={reservationCreated}
+      />
     </div>
   );
 }

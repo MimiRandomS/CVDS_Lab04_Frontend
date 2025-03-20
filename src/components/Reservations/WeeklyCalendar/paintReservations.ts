@@ -2,7 +2,7 @@ import Reservation from "../../../model/Reservation";
 
 const dayIndex = (date: string) => {
   const day = new Date(date).getDay();
-  return ((day + 6) % 7) + 1;
+  return day;
 };
 
 const timeIndex = (time: string) => {
