@@ -9,6 +9,7 @@ import DeleteAccount from "../components/User/Update/DeleteAccount/deleteAccount
 import UserReservationsPage from "../features/User/myReservations/userReservations";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import Users from "../features/users/Users";
+import CreateUser from "../features/users/createUser/CreateUser";
 
 function AppRoutes() {
   return (
@@ -25,6 +26,7 @@ function AppRoutes() {
         <Route path="/delete-account" element={<DeleteAccount />} />
         <Route path="/myReservations" element={<UserReservationsPage />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/users/create" element={<CreateUser />} />
       </Route>
     </Routes>
   );
