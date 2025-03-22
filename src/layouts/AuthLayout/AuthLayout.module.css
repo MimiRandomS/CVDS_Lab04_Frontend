@@ -24,8 +24,8 @@
 }
 
 .layout {
-  height: 70%;
-  width: 70%;
+  height: 80%;
+  width: 80%;
   display: flex;
   border-radius: 10px;
   box-shadow: 4px 3px 15px 4px #000000;

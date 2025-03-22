@@ -1,0 +1,9 @@
+.error__icon {
+  margin-right: 0.5rem;
+}
+
+.error__text {
+  color: #a81d32;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
