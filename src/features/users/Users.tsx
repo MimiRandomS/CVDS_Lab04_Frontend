@@ -3,6 +3,7 @@ import LateralBar from "../../components/LateralBar/LateralBar";
 import Card from "../../components/Users/Card/Card";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import styles from "./Users.module.css";
+import { Link } from "react-router-dom";
 
 function Users() {
   return (
@@ -10,7 +11,9 @@ function Users() {
       leftContent={<LateralBar />}
       rightContent={
         <div className={styles.container}>
-          <Card icon={faUserPlus} text="Agregar usuaio" />
+          <Link to="/users/create" style={{ textDecoration: "none" }}>
+            <Card icon={faUserPlus} text="Agregar usuario" />
+          </Link>
           <Card icon={faUsersGear} text="Administrar usuarios" />
         </div>
       }
