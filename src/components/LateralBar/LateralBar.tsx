@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./LateralBar.module.css";
 
 function LateralBar() {
-  const items = ["Reservas", "Mis reservas"];
-  const paths = ["/reservations", "/myReservations"];
+  const items = ["Reservas", "Mis reservas", "Usuarios", "Reportes"];
+  const paths = ["/reservations", "/myReservations", "/users"];
   const navigate = useNavigate();
 
   const handleNavigation = (path: string) => {
