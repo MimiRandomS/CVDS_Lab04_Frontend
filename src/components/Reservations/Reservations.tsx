@@ -46,7 +46,7 @@ function Reservations() {
                 setForm((prev) => ({ ...prev, selectedLab: labId }))
               }
             ></LabSelection>
-            <LabInfo></LabInfo>
+            <LabInfo labId={form.selectedLab}></LabInfo>
           </div>
         </div>
         <div className={styles.data}>

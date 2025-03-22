@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLabs } from "../services/labService";
+import { getLab, getLabs } from "../services/labService";
 import Lab from "../model/Lab";
 
 const useLabs = () => {
@@ -24,4 +24,27 @@ const useLabs = () => {
   return { labs, isLoading };
 };
 
-export { useLabs };
+const useLab = (labId: string) => {
+  const [lab, setLab] = useState<Lab | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchLab = async () => {
+      try {
+        const data = await getLab(labId);
+        setLab(data.data!);
+      } catch (error) {
+        alert("Error obteniendo los laboratorios");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchLab();
+  }, [labId]);
+
+  return { lab, isLoading };
+};
+
+export { useLabs, useLab };
