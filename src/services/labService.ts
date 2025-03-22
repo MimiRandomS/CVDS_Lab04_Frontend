@@ -23,4 +23,13 @@ const getLabName = async (labId: string): Promise<ApiResponse<string>> => {
   }
 };
 
-export { getLabs, getLabName };
+const getLab = async (labId: string): Promise<ApiResponse<Lab>> => {
+  try {
+    const response = await api.get<ApiResponse<Lab>>(`/labs/lab/${labId}`);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export { getLabs, getLabName, getLab };
