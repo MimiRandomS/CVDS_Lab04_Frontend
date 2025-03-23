@@ -3,7 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./WeeklyCalendar.module.css";
 import { formatWeekRange, getWeekRange } from "./calculateWeek";
 import useWeekReservations from "../../../hooks/useWeekReservations";
-import { getReservationsGrid, reserved } from "./paintReservations";
+import {
+  getReservationsGrid,
+  isFirst,
+  isLast,
+  reserved,
+} from "./paintReservations";
 import { TailSpin } from "react-loading-icons";
 
 type Props = {
@@ -76,6 +81,14 @@ function WeeklyCalendar({ labId, reservationCreated }: Props) {
                   className={`${styles.calendar__cell} ${
                     reserved(reservationsGrid, colIndex, rowIndex)
                       ? styles.reserved
+                      : ""
+                  } ${
+                    isFirst(reservationsGrid, colIndex, rowIndex)
+                      ? styles.first
+                      : ""
+                  } ${
+                    isLast(reservationsGrid, colIndex, rowIndex)
+                      ? styles.last
                       : ""
                   }`}
                 ></div>
