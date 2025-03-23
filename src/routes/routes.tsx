@@ -11,6 +11,7 @@ import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import Users from "../features/users/Users";
 import CreateUser from "../features/users/createUser/CreateUser";
 import AdminRoute from "../components/PrivateRoute/AdminRoute";
+import Analytics from "../features/Analytics/Analytics";
 
 function AppRoutes() {
   return (
@@ -31,6 +32,7 @@ function AppRoutes() {
       <Route element={<AdminRoute />}>
         <Route path="/users" element={<Users />} />
         <Route path="/users/create" element={<CreateUser />} />
+        <Route path="/analytics" element={<Analytics />} />
       </Route>
     </Routes>
   );

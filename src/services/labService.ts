@@ -32,4 +32,20 @@ const getLab = async (labId: string): Promise<ApiResponse<Lab>> => {
   }
 };
 
-export { getLabs, getLabName, getLab };
+const getLabNamesDictionary = async (labIds: string[]) => {
+  const labNames: Record<string, string> = {};
+
+  for (const labId of labIds) {
+    try {
+      const response = await getLabName(labId);
+      labNames[labId] = response.data ?? "Desconocido";
+    } catch (error) {
+      console.error(`Error obteniendo el nombre del laboratorio ${labId}`, error);
+      labNames[labId] = "Desconocido";
+    }
+  }
+
+  return labNames;
+};
+
+export { getLabs, getLabName, getLab, getLabNamesDictionary};
