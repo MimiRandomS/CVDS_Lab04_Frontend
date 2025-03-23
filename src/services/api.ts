@@ -3,7 +3,7 @@ import axios from "axios";
 const api = axios.create({
   baseURL:
     // "https://unireserva-haa2a4e3aueeeqes.brazilsouth-01.azurewebsites.net",
-    "http://localhost:8080/",
+    "https://localhost:8443/",
   headers: {
     "Content-Type": "application/json",
   },
