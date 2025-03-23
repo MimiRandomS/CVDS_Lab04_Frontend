@@ -11,7 +11,7 @@ function LateralBar() {
 
   if (userRole === "ADMIN") {
     items.push("Usuarios", "Reportes");
-    paths.push("/users", "/users");
+    paths.push("/users", "/analytics");
   }
 
   const handleNavigation = (path: string) => {
