@@ -2,7 +2,8 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL:
-    "https://unireserva-haa2a4e3aueeeqes.brazilsouth-01.azurewebsites.net",
+    // "https://unireserva-haa2a4e3aueeeqes.brazilsouth-01.azurewebsites.net",
+    "https://localhost:8443/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -27,7 +28,7 @@ api.interceptors.response.use(
       window.location.href = "/login";
     }
 
-    return Promise.reject(new Error(error.message || "Ocurrio un error"));
+    return Promise.reject(error);
   }
 );
 

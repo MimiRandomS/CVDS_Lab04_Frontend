@@ -1,11 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import styles from "./LateralBar.module.css";
+import getUserFromSessionStorage from "../../utils/getFromSessionStorage";
 
 function LateralBar() {
+  const navigate = useNavigate();
+  const userRole = getUserFromSessionStorage().rol;
   const items = ["Reservas", "Mis reservas"];
   const paths = ["/reservations", "/myReservations"];
-  const navigate = useNavigate();
+
+  if (userRole === "ADMIN") {
+    items.push("Usuarios", "Reportes");
+    paths.push("/users", "/analytics");
+  }
 
   const handleNavigation = (path: string) => {
     navigate(path);

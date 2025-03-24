@@ -9,6 +9,9 @@ import {
   faArrowRight,
   faArrowLeft,
   faCircleExclamation,
+  faImage,
+  faUserPlus,
+  faUsersGear,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -20,5 +23,8 @@ library.add(
   faPencil,
   faArrowRight,
   faArrowLeft,
-  faCircleExclamation
+  faCircleExclamation,
+  faImage,
+  faUserPlus,
+  faUsersGear
 );

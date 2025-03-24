@@ -24,12 +24,19 @@
   font-size: 1.5rem;
 }
 
+.loading {
+  display: flex;
+  margin: auto;
+  margin-top: 10rem;
+}
+
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   border: 0.2px solid #4a4a4a;
   text-align: center;
   width: 100%;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .calendar__header {
@@ -50,4 +57,16 @@
 
 .reserved {
   background-color: rgb(67, 138, 67);
+  border-top: none;
+  border-bottom: none;
+}
+
+.first {
+  border-top: 0.2px solid #4a4a4a;
+  border-bottom: none !important;
+}
+
+.last {
+  border-bottom: 0.2px solid #4a4a4a;
+  border-top: none !important;
 }

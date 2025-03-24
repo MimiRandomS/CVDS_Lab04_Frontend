@@ -24,9 +24,10 @@ const initialFormState: FormState = {
 
 type Props = {
   readonly labs: Lab[];
+  readonly onReservationCreated: () => void;
 };
 
-function useReservationForm({ labs }: Props) {
+function useReservationForm({ labs, onReservationCreated }: Props) {
   const [form, setForm] = useState<FormState>(initialFormState);
 
   // Si labs cambia y aún no hay un lab seleccionado, se deja por defecto el primero.
@@ -84,6 +85,8 @@ function useReservationForm({ labs }: Props) {
         ...initialFormState,
         selectedLab: prev.selectedLab,
       }));
+
+      onReservationCreated();
     } catch (error: any) {
       alert(error.message);
     }

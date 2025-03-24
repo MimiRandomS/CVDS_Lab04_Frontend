@@ -44,6 +44,28 @@
   color: #000;
 }
 
+/* Error */
+.inputError,
+.inputError:focus {
+  border-color: #a81d32;
+}
+
+.labelError,
+.inputError:focus + .labelError {
+  color: #a81d32;
+}
+
+/* correct */
+.inputCorrect,
+.inputCorrect:focus {
+  border-color: #4da238 !important;
+}
+
+.labelCorrect,
+.inputCorrect:focus + .labelCorrect {
+  color: #4da238 !important;
+}
+
 /* Para navegadores WebKit (Chrome, Safari, Edge) */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

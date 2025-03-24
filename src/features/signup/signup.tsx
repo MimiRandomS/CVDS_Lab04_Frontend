@@ -1,26 +1,24 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
 import AuthLogo from "../../components/AuthLogo/AuthLogo";
 import AuthForm from "../../components/AuthForm/AuthForm";
-import InputField from "../../components/InputField/InputField";
 import { signup } from "../../services/authService";
+import CreateUserForm from "../../components/User/Update/CreateUserForm/CreateUserForm";
+import { useCreateUserForm } from "../../hooks/useCreateUserForm";
+import styles from "./Signup.module.css";
 
 function Signup() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const { formData, validInput, canSubmitForm, handleChange } =
+    useCreateUserForm();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!canSubmitForm) {
+      return alert("Campos incorrectos");
+    }
+
     try {
       await signup(formData);
       alert("Usuario creado");
@@ -35,33 +33,11 @@ function Signup() {
       leftContent={<AuthLogo />}
       rightContent={
         <AuthForm type="signup" onSubmit={handleSubmit}>
-          <InputField
-            type="number"
-            text="Numero de identidad"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-          />
-          <InputField
-            type="text"
-            text="Nombre"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <InputField
-            type="text"
-            text="Correo"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <InputField
-            type="password"
-            text="Contraseña"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
+          <CreateUserForm
+            className={styles.inputs}
+            formData={formData}
+            validInput={validInput}
+            handleChange={handleChange}
           />
         </AuthForm>
       }

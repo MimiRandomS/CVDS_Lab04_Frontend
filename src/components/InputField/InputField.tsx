@@ -5,10 +5,24 @@ type Props = {
   readonly text: string;
   readonly name?: string;
   readonly value?: string;
+  readonly error?: boolean;
   readonly onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function InputField({ type, text, name, value, onChange }: Props) {
+function InputField({ type, text, name, value, error, onChange }: Props) {
+  let inputClass = styles.input;
+  let labelClass = styles.label;
+
+  if (value !== "" && error !== undefined) {
+    if (error) {
+      inputClass += ` ${styles.inputError}`;
+      labelClass += ` ${styles.labelError}`;
+    } else {
+      inputClass += ` ${styles.inputCorrect}`;
+      labelClass += ` ${styles.labelCorrect}`;
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.inputContainer}>
@@ -17,10 +31,10 @@ function InputField({ type, text, name, value, onChange }: Props) {
           name={name}
           value={value}
           onChange={onChange}
-          className={styles.input}
+          className={inputClass}
           placeholder=" "
         />
-        <label className={styles.label}>{text}</label>
+        <label className={labelClass}>{text}</label>
       </div>
     </div>
   );
