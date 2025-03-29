@@ -1,36 +1,15 @@
 import Reservation from "../../../model/Reservation";
 
-const dayIndex = (date: string) => {
-  const day = new Date(date).getDay();
-  return day;
-};
-
-const timeIndex = (time: string) => {
-  const [hour, minute] = time.split(":").map(Number);
-  return (hour - 7) * 2 + (minute === 30 ? 1 : 0);
-};
-
 const getReservationsGrid = (reservations: Reservation[]) => {
-  const calendarGrid: ([string, string] | [null, null])[][] = Array.from(
-    { length: 25 },
-    () =>
-      Array(7)
-        .fill(null)
-        .map(() => [null, null] as [null, null])
-  );
+  const calendarGrid: (Reservation | null)[][] = resetReservationsGrid();
 
   reservations.forEach((reservation) => {
     const col = dayIndex(reservation.date);
-    const startRow = timeIndex(reservation.startTime);
-    const endRow = timeIndex(reservation.endTime);
+    const startRow = timeIndex(reservation.startTime)!;
+    const endRow = timeIndex(reservation.endTime)!;
 
-    for (let i = startRow; i < endRow; i++) {
-      calendarGrid[i][col][0] = reservation.id;
-      if (i === startRow) {
-        calendarGrid[i][col][1] = "first";
-      } else if (i === endRow - 1) {
-        calendarGrid[i][col][1] = "last";
-      }
+    for (let row = startRow; row < endRow; row++) {
+      calendarGrid[row][col] = reservation;
     }
   });
 
@@ -38,37 +17,50 @@ const getReservationsGrid = (reservations: Reservation[]) => {
 };
 
 const reserved = (
-  reservationsGrid: ([string, string] | [null, null])[][],
+  reservationsGrid: (Reservation | null)[][],
   col: number,
   row: number
 ) => {
-  return !!reservationsGrid[row][col][0];
+  return !!reservationsGrid[row][col];
 };
 
-const isFirst = (
-  reservationsGrid: ([string, string] | [null, null])[][],
-  col: number,
-  row: number
-) => {
-  return reservationsGrid[row][col][1] === "first";
+const twoBlocks = (reservation: Reservation | null) => {
+  if (reservation === null) {
+    return false;
+  }
+  return calMinutes(reservation.startTime, reservation.endTime) === 180;
 };
 
-const isLast = (
-  reservationsGrid: ([string, string] | [null, null])[][],
-  col: number,
-  row: number
-) => {
-  return reservationsGrid[row][col][1] === "last";
+const resetReservationsGrid = () => {
+  return Array.from({ length: 9 }, () => Array.from({ length: 7 }, () => null));
 };
 
-const resertReservationsGrid = () => {
-  return Array.from({ length: 25 }, () => Array(7).fill(null));
+const dayIndex = (date: string) => {
+  const day = new Date(date).getDay();
+  return day;
 };
 
-export {
-  getReservationsGrid,
-  reserved,
-  isFirst,
-  isLast,
-  resertReservationsGrid,
+const timeIndex = (time: string) => {
+  const timeMap: Record<string, number> = {
+    "07:00": 0,
+    "08:30": 1,
+    "10:00": 2,
+    "11:30": 3,
+    "13:00": 4,
+    "14:30": 5,
+    "16:00": 6,
+    "17:30": 7,
+    "19:00": 8,
+  };
+
+  return timeMap[time];
 };
+
+function calMinutes(startTime: string, endTime: string): number {
+  const [h1, m1] = startTime.split(":").map(Number);
+  const [h2, m2] = endTime.split(":").map(Number);
+
+  return h2 * 60 + m2 - (h1 * 60 + m1);
+}
+
+export { getReservationsGrid, reserved, resetReservationsGrid, twoBlocks };
