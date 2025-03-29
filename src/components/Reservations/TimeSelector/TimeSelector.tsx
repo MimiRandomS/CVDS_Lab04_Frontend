@@ -10,6 +10,22 @@ type props = {
 };
 
 function TimeSelector({ selectedTime, onChange }: props) {
+  const generateTimeIntervals = () => {
+    const times: Date[] = [];
+    let currentTime = new Date();
+    currentTime.setHours(7, 0, 0, 0);
+
+    while (
+      currentTime.getHours() < 17 ||
+      (currentTime.getHours() === 17 && currentTime.getMinutes() <= 30)
+    ) {
+      times.push(new Date(currentTime));
+      currentTime.setMinutes(currentTime.getMinutes() + 90);
+    }
+
+    return times;
+  };
+
   return (
     <div className={inputFieldStyles.container}>
       <FontAwesomeIcon
@@ -22,11 +38,9 @@ function TimeSelector({ selectedTime, onChange }: props) {
         onChange={onChange}
         showTimeSelect
         showTimeSelectOnly
-        timeIntervals={30}
+        includeTimes={generateTimeIntervals()}
         timeFormat="HH:mm"
         dateFormat="HH:mm"
-        minTime={new Date(new Date().setHours(7, 0, 0, 0))}
-        maxTime={new Date(new Date().setHours(19, 0, 0, 0))}
         placeholderText="Hora"
       ></DatePicker>
     </div>
