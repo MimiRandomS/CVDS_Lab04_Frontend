@@ -17,7 +17,7 @@ const initialFormState: FormState = {
   selectedLab: "67c52c27c36ef003a1db0b2f",
   selectedDate: null,
   selectedTime: null,
-  selectedDuration: 30,
+  selectedDuration: 90,
   purpose: "",
   selectedPriority: 1,
 };
