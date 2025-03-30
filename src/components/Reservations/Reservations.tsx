@@ -15,18 +15,28 @@ import Button from "../Button/Button";
 import WeeklyCalendar from "./WeeklyCalendar/WeeklyCalendar";
 import { useReservationForm } from "../../hooks/useReservationForm";
 import { useLabs } from "../../hooks/useLabs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const durations = [30, 60, 90, 120, 150, 180];
 const priority = [1, 2, 3, 4, 5];
 
 function Reservations() {
+  const [durations, setDurations] = useState([90, 180]);
   const [reservationCreated, setReservationCreated] = useState(false);
   const { labs, isLoading } = useLabs();
   const { form, setForm, handleSubmit } = useReservationForm({
     labs,
     onReservationCreated: () => setReservationCreated((prev) => !prev),
   });
+  useEffect(() => {
+    if (
+      form.selectedTime?.getHours() === 17 &&
+      form.selectedTime?.getMinutes() === 30
+    ) {
+      setDurations([90]);
+    } else {
+      setDurations([90, 180]);
+    }
+  }, [form.selectedTime]);
 
   if (isLoading) {
     return <h2>No hay laboratorios disponibles</h2>;
