@@ -1,74 +1,61 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./UserReservations.module.css";
 import Card from "../Card/Card";
-import Button from "../Button/Button";
 import IconLink from "../IconLink/IconLink";
-import DetailReservation from "./DetailReservation/DetailReservation";
 import CancelReservation from "./CancelReservation/CancelReservation";
-import infoIcon from "../../assets/public/info.ico";
+import CancelIcon from "../../assets/public/cancel.ico";
 import { cancelReservation } from "../../services/reservationService";
-import Reservation from "../../model/Reservation";
 import { getLabName } from "../../services/labService";
+import Carrousel from "../Carousel/Carousel";
+import Reservation from "../../model/Reservation";
 
 type Props = {
   readonly reservations: Reservation[];
 };
 
+const ITEMS_PER_PAGE = 4; // Máximo de reservas por página
+
 function UserReservations({ reservations }: Props) {
-  const [reservationsList, setReservationsList] =
-    useState<Reservation[]>(reservations);
-
-  const [selectedReservation, setSelectedReservation] =
-    useState<Reservation | null>(null);
-  const [modalOpen, setModalOpen] = useState(false);
-
+  const [reservationsList, setReservationsList] = useState<Reservation[]>(reservations);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
-  const [reservationToCancel, setReservationToCancel] =
-    useState<Reservation | null>(null);
-
-  const [currentLabName, setCurrentLabName] = useState<string>("Cargando...");
+  const [reservationToCancel, setReservationToCancel] = useState<Reservation | null>(null);
+  const [labNames, setLabNames] = useState<Record<string, string>>({});
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    if (!selectedReservation) {
-      return;
-    }
+    const fetchLabNames = async () => {
+      const uniqueLabIds = [...new Set(reservations.map((res) => res.labId))];
+      const labNamesMap: Record<string, string> = {};
 
-    const fetchLabName = async () => {
-      try {
-        const name = await getLabName(selectedReservation.labId);
-        setCurrentLabName(name.data!);
-      } catch (error) {
-        console.error("Error al obtener el nombre del laboratorio", error);
-        setCurrentLabName("Cargando...");
-      }
+      await Promise.all(
+        uniqueLabIds.map(async (labId) => {
+          try {
+            const response = await getLabName(labId);
+            labNamesMap[labId] = response.data!;
+          } catch (error) {
+            console.error(`Error al obtener el nombre del laboratorio con ID ${labId}`, error);
+            labNamesMap[labId] = "Desconocido";
+          }
+        })
+      );
+
+      setLabNames(labNamesMap);
     };
 
-    fetchLabName();
-  }, [selectedReservation]);
+    fetchLabNames();
+  }, [reservations]);
 
   const handleCancelReservation = async (reservationId: string) => {
     try {
       await cancelReservation(reservationId);
-      setReservationsList((prevList) =>
-        prevList.filter((res) => res.id !== reservationId)
-      );
+      setReservationsList((prevList) => prevList.filter((res) => res.id !== reservationId));
     } catch (error) {
       console.error("Error al cancelar la reserva", error);
       alert("Hubo un problema al cancelar la reserva. Intenta de nuevo.");
     } finally {
       closeCancelModal();
     }
-  };
-
-  const openModal = (reservation: Reservation) => {
-    setSelectedReservation(reservation);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedReservation(null);
-    setCurrentLabName("Cargando...");
-    setModalOpen(false);
   };
 
   const openCancelModal = (reservation: Reservation) => {
@@ -78,64 +65,78 @@ function UserReservations({ reservations }: Props) {
 
   const closeCancelModal = () => {
     setReservationToCancel(null);
-    setCurrentLabName("Cargando...");
     setCancelModalOpen(false);
+  };
+
+  // Filtrar reservas confirmadas y dividir en páginas
+  const confirmedReservations = reservationsList.filter((res) => res.status === "CONFIRMED");
+  const totalPages = Math.ceil(confirmedReservations.length / ITEMS_PER_PAGE);
+  const paginatedReservations = confirmedReservations.slice(
+    currentPage * ITEMS_PER_PAGE,
+    (currentPage + 1) * ITEMS_PER_PAGE
+  );
+
+  const nextPage = () => {
+    if (currentPage < totalPages - 1) setCurrentPage((prev) => prev + 1);
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) setCurrentPage((prev) => prev - 1);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.listReservations}>
-        {reservationsList.filter(
-          (reservation) => reservation.status === "CONFIRMED"
-        ).length === 0 ? (
-          <Card
-            title="No tienes reservas confirmadas"
-            className={styles.noReservationsCard}
-          >
-            <p className={styles.noReservationsText}>
-              Parece que aún no has realizado ninguna reserva.
-            </p>
-          </Card>
-        ) : (
-          reservationsList
-            .filter((reservation) => reservation.status === "CONFIRMED")
-            .map((reservation) => (
-              <Card
-                key={reservation.id}
-                title={`Reserva del ${reservation.date}`}
-                className={styles.card}
+      <div className={styles.containerCarrosel}>
+        <Carrousel
+          title="Mis Reservas"
+          onNext={nextPage}
+          onPrev={prevPage}
+          canNext={currentPage < totalPages - 1}
+          canPrev={currentPage > 0}
+        >
+          <AnimatePresence mode="wait">
+            {paginatedReservations.length === 0 ? (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
               >
-                {/*
-              TODO: Implementar botón para ver detalles de reserva.
-              <Button text="Ver" className={styles.btn} onClick={() => console.log("Abrir nuevo componente")} />
-            */}
-                <IconLink
-                  src={infoIcon}
-                  alt="Información reserva"
-                  onClick={() => openModal(reservation)}
-                />
-              </Card>
-            ))
-        )}
+                <Card title="No tienes reservas confirmadas" className={styles.noReservationsCard}>
+                  <p className={styles.noReservationsText}>Parece que aún no has realizado ninguna reserva.</p>
+                </Card>
+              </motion.div>
+            ) : (
+              paginatedReservations.map((reservation) => (
+                <motion.div
+                  key={reservation.id}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                >
+                  <Card
+                    title={reservation.purpose}
+                    subtitle={reservation.date}
+                    className={styles.card}
+                    footer={
+                      <div className={styles.cardFooter}>
+                        <span className={styles.priority}>Prioridad: {reservation.priority}</span>
+                        <IconLink src={CancelIcon} alt="Cancelar reserva" onClick={() => openCancelModal(reservation)} />
+                      </div>
+                    }
+                  >
+                    <div className={styles.cardBody}>
+                      <p className={styles.labName}>Laboratorio: {labNames[reservation.labId] || "Cargando..."}</p>
+                      <p className={styles.schedule}>Hora: {reservation.startTime} - {reservation.endTime}</p>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))
+            )}
+          </AnimatePresence>
+        </Carrousel>
       </div>
-      <DetailReservation
-        reservation={selectedReservation}
-        isOpen={modalOpen}
-        onClose={closeModal}
-        onCancelReservation={() => {
-          closeModal();
-          if (selectedReservation) openCancelModal(selectedReservation);
-        }}
-        labName={currentLabName!}
-      />
-
-      <CancelReservation
-        isOpen={cancelModalOpen}
-        onClose={closeCancelModal}
-        onConfirm={() =>
-          reservationToCancel && handleCancelReservation(reservationToCancel.id)
-        }
-      />
+      <CancelReservation isOpen={cancelModalOpen} onClose={closeCancelModal} onConfirm={() => reservationToCancel && handleCancelReservation(reservationToCancel.id)} />
     </div>
   );
 }
