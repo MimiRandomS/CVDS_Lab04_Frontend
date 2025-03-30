@@ -31,6 +31,10 @@ function Account() {
                   <p className={styles.item__text}>{user.id}</p>
                 </div>
                 <div className={styles.data__item}>
+                  <h3 className={styles.item__title}>Rol</h3>
+                  <p className={styles.item__text}>{user.rol}</p>
+                </div>
+                <div className={styles.data__item}>
                   <h3 className={styles.item__title}>Correo</h3>
                   <p className={styles.item__text}>{user.email}</p>
                 </div>
