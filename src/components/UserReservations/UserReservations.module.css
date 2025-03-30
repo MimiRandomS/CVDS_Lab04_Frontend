@@ -1,44 +1,32 @@
 .container {
-    background-color: #fff;
+    background-color: #f9fafb;
     height: 100vh;
-    width: 100%;
+
 }
 
-.listReservations {
+.containerCarrosel{
+    height: 100%;
     display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    padding: 2rem;
-}
-
-@media (max-width: 850px) {
-    .listReservations {
-        flex-direction: column;
-        align-items: center;
-    }
-    .card {
-        flex: none;
-        width: 100%;
-        max-width: 400px; 
-    }
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
 }
 
 .btn {
     color: white;
     background-color: #4CAF50;
     border-radius: 0.375rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .btn:hover {
     background-color: #45a049;
-}
-
-
-.card{
-    width: 30%;
-    min-width: 250px;
-    max-width: 350px;
-    min-height: 160px;
+    transform: scale(1.05);
 }
 
 .noReservationsCard {
@@ -48,18 +36,101 @@
     min-height: 300px;
     margin: auto;
     text-align: center;
-    background-color: #f3f4f6;
-}
-
-.noReservationsCardBody{
-    background-color: red;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
 }
 
 .noReservationsCardTitle {
-    background-color: blue;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.noReservationsCardBody {
+    font-size: 1rem;
+    color: #666;
+    padding-top: 0.75rem;
 }
 
 .noReservationsText {
     font-size: 1rem;
-    color: whitesmoke;
+    color: #555;
+}
+
+.viewButton {
+    background-color: #a81d32;
+    color: white;
+    font-weight: bold;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.viewButton:hover {
+    background-color: #8f192b;
+    transform: scale(1.05);
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 0.5rem;
+}
+
+.labName {
+font-size: 1rem;
+font-weight: bold;
+color: #ffffff;
+}
+
+.schedule {
+font-size: 0.9rem;
+color: #d1d5db;
+}
+
+
+.priority {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.iconInfo {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.iconInfo:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .noReservationsCard {
+        width: 90%;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .cardFooter {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
 }
