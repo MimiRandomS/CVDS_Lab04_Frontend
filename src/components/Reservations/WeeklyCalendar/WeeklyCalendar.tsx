@@ -3,12 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./WeeklyCalendar.module.css";
 import { formatWeekRange, getWeekRange } from "./calculateWeek";
 import useWeekReservations from "../../../hooks/useWeekReservations";
-import {
-  getReservationsGrid,
-  isFirst,
-  isLast,
-  reserved,
-} from "./paintReservations";
+import { getReservationsGrid, reserved, twoBlocks } from "./paintReservations";
 import { TailSpin } from "react-loading-icons";
 
 type Props = {
@@ -18,8 +13,8 @@ type Props = {
 
 function WeeklyCalendar({ labId, reservationCreated }: Props) {
   const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-  const hours = Array.from({ length: 24 }, (_, i) => {
-    const hour = Math.floor(i / 2) + 7;
+  const hours = Array.from({ length: 9 }, (_, i) => {
+    const hour = Math.floor(i * 1.5) + 7;
     const minutes = i % 2 === 0 ? "00" : "30";
     return `${hour}:${minutes}`;
   });
@@ -75,24 +70,40 @@ function WeeklyCalendar({ labId, reservationCreated }: Props) {
           {hours.map((hour, rowIndex) => (
             <React.Fragment key={hour}>
               <div className={styles.calendar__hour}>{hour}</div>
-              {days.map((day, colIndex) => (
-                <div
-                  key={`${day}-${hour}`}
-                  className={`${styles.calendar__cell} ${
-                    reserved(reservationsGrid, colIndex, rowIndex)
-                      ? styles.reserved
-                      : ""
-                  } ${
-                    isFirst(reservationsGrid, colIndex, rowIndex)
-                      ? styles.first
-                      : ""
-                  } ${
-                    isLast(reservationsGrid, colIndex, rowIndex)
-                      ? styles.last
-                      : ""
-                  }`}
-                ></div>
-              ))}
+              {days.map((day, colIndex) => {
+                const isReserved = reserved(
+                  reservationsGrid,
+                  colIndex,
+                  rowIndex
+                );
+                const isTwoBlocks = twoBlocks(
+                  reservationsGrid[rowIndex][colIndex]
+                );
+
+                let classBlock = "";
+                if (isTwoBlocks) {
+                  let isFirstBlock = true;
+                  if (rowIndex !== 0) {
+                    isFirstBlock = !reserved(
+                      reservationsGrid,
+                      colIndex,
+                      rowIndex - 1
+                    );
+                  }
+                  classBlock = isFirstBlock
+                    ? "two-blocks--first"
+                    : "two-blocks--last";
+                }
+
+                return (
+                  <div
+                    key={`${day}-${hour}`}
+                    className={`${styles.calendar__cell} ${
+                      isReserved ? styles.reserved : ""
+                    } ${styles[classBlock]}`}
+                  ></div>
+                );
+              })}
             </React.Fragment>
           ))}
         </div>
