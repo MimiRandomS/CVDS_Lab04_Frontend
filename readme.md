@@ -85,29 +85,33 @@ En este apartado podrás:
 - Elegir el **laboratorio** donde deseas realizar la reserva
 - Ver la información **del laboratorio** seleccionado  
 
-![alt text](public/readme/reservations.png)
+![alt text](public/readme/createreservation.jpg)
 
 ## 4. Mis Reservas  
 Aquí encontrarás todas las reservas que has realizado.  
 - Si no tienes reservas, aparecerá un mensaje notificándolo.  
 - Si tienes reservas activas, podrás consultar sus detalles y cancelarlas si es necesario.  
 
-![alt text](public/readme/myReservations.png)
+![alt text](public/readme/myreservation1.jpg)
 
-![alt text](public/readme/reservationDetails.png)
+![alt text](public/readme/myreservation_2.jpg)
+
+![alt text](public/readme/cancelreservation.jpg)
+
 
 ## 5. Mi Cuenta  
 En esta sección podrás:  
 - Ver y editar tu **información personal**  
 - Cerrar sesión de forma segura  
 
-![alt text](public/readme/userDetails.png)
+![alt text](public/readme/account1.jpg)
 
 ## Acceso como Administrador  
 
 El proceso de **inicio de sesión** para un administrador es **idéntico** al de un usuario regular. Sin embargo, una vez dentro de la plataforma, el administrador tendrá acceso a **nuevas opciones** en la **barra lateral izquierda** .  
 
-![alt text](public/readme/Admon.jpg)
+![alt text](public/readme/reservation1.jpg)
+
 
 ### Apartados Exclusivos para Administradores 
 
