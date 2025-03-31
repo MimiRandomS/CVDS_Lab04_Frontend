@@ -2,8 +2,8 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL:
-    // "https://unireserva-haa2a4e3aueeeqes.brazilsouth-01.azurewebsites.net",
-    "https://localhost:8443/",
+    "https://unireserva-haa2a4e3aueeeqes.brazilsouth-01.azurewebsites.net",
+  // "https://localhost:8443/",
   headers: {
     "Content-Type": "application/json",
   },
